@@ -11,6 +11,6 @@
   "scripts": {
     "web": "yarn workspace @bsecret/web",
     "server": "yarn workspace @bsecret/server",
-    "start": "yarn web start && yarn server start:dev"
+    "start": "yarn web dev && yarn server start:dev"
   }
 }
