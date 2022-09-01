@@ -1,7 +1,8 @@
 {
-  "name": "bsecret",
+  "name": "@bsecret/web",
   "private": true,
   "version": "0.0.0",
+  "author": "Marllef H. A. Freitas <marllef-alves@hotmail.com>",
   "type": "module",
   "scripts": {
     "dev": "vite",

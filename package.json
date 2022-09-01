@@ -1,0 +1,16 @@
+{
+  "name": "bsecret",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "author": "Marllef H. A. Freitas <marllef-alves@hotmail.com>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "web": "yarn workspace @bsecret/web",
+    "server": "yarn workspace @bsecret/server",
+    "start": "yarn web start && yarn server start:dev"
+  }
+}
