@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  database:
+    container_name: bs_database
+    image: postgres:14.5
+    restart: always
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+      POSTGRES_DB: bsecret
+    volumes:
+      - bsecret_db:/var/lib/postgresql
+  # server:
+  #   container_name: bs_server
+  #   build: ./packages/server/
+  #   restart: always
+  #   environment:
+  #     DATABASE_URL: postgresql://root:root@bs_database:5432/bsecret?schema=public
+  #     PORT: 3005
+  #   command: yarn server start:dev
+  #   ports:
+  #     - '3005:3005'
+  #   volumes:
+  #     - .:/usr/app
+  #   depends_on:
+  #     - database
+
+volumes:
+  bsecret_db:

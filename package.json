@@ -8,9 +8,15 @@
   "workspaces": [
     "packages/*"
   ],
+  "prisma": {
+    "schema": "./packages/server/prisma/schema.prisma"
+  },
   "scripts": {
     "web": "yarn workspace @bsecret/web",
     "server": "yarn workspace @bsecret/server",
     "start": "yarn web dev && yarn server start:dev"
+  },
+  "devDependencies": {
+    "prisma": "^4.3.1"
   }
 }
