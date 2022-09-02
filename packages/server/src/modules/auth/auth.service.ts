@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AccountService } from '../account/account.service';
 
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { Account } from '@prisma/client';
+import { Account, User } from '@prisma/client';
+import { RegisterDTO } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,8 @@ export class AuthService {
 
   async validateAccount(username: string, password: string) {
     const account = await this.accountService.findByUsername(username);
-    const isValidPass = bcrypt.compare(password, account.password);
+    if (!account) throw new UnauthorizedException('Credenciais inválidas.');
+    const isValidPass = await bcrypt.compare(password, account.password);
 
     if (account && isValidPass) {
       return account;
@@ -31,5 +33,11 @@ export class AuthService {
     return {
       token: this.jwtService.sign(payload),
     };
+  }
+
+  async register(data: RegisterDTO) {
+    const registered = await this.accountService.create(data);
+    registered.password = undefined;
+    return registered;
   }
 }

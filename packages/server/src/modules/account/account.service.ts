@@ -13,10 +13,13 @@ export class AccountService {
     const exists = await this.prisma.account.findFirst({
       where: {
         username: data.username,
+        OR: {
+          email: data.email,
+        },
       },
     });
 
-    if (exists) throw new ConflictException('Este usuário já existe!');
+    if (exists) throw new ConflictException('Usuário já cadastrado.');
 
     const { password, ...rest } = data;
     const hashed = await bcrypt.hash(password, 10);
@@ -43,7 +46,7 @@ export class AccountService {
   }
 
   async findByUsername(username: string) {
-    return await this.prisma.account.findUnique({
+    return await this.prisma.account.findFirst({
       where: {
         username,
       },
