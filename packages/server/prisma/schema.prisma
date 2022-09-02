@@ -16,4 +16,14 @@ model Account {
   username    String @unique
   email       String @unique
   password    String
+
+  User User?
+}
+
+model User {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String  @unique
 }
