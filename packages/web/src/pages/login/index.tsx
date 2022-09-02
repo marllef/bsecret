@@ -1,5 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { Footer } from "./footer";
 
 export const LoginPage = () => {
   const [itens, setItens] = useState<any>();
@@ -11,11 +12,11 @@ export const LoginPage = () => {
   return (
     <div className="flex flex-col relative w-full h-screen justify-center items-center bg-slate-100 p-5">
       <div className="flex flex-col max-w-sm space-y-3 w-full bg-white p-2 rounded border">
-        <h3 className="w-full text-center text-2xl border-b pb-2">
+        <h3 className="w-full text-center text-2xl border-b  pb-3 pt-2">
           Realizar Login
         </h3>
 
-        <div className="flex flex-col w-full space-y-3 px-5 pb-5">
+        <div className="flex flex-col w-full space-y-3 p-5">
           <TextField
             size="small"
             label="Login"
@@ -40,9 +41,7 @@ export const LoginPage = () => {
           </Button>
         </div>
       </div>
-      <footer className="flex justify-center items-center fixed text-xs text-gray-700 bottom-0 left-0 right-0 bg-gray-200 w-full p-2">
-        Developed by Marllef
-      </footer>
+      <Footer />
     </div>
   );
 };
