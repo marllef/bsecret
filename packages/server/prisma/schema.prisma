@@ -12,12 +12,12 @@ datasource db {
 
 model Account {
   id          String @id @default(uuid())
-  displayName String
+  displayName String?
   username    String @unique
   email       String @unique
   password    String
 
-  User User?
+  user User?
 }
 
 model User {
