@@ -1,12 +1,26 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuth from "~/hooks/useAuth";
 import { Footer } from "./footer";
 
 export const LoginPage = () => {
   const [itens, setItens] = useState<any>();
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    console.log(itens);
+  const handleSubmit = async () => {
+    try {
+      if (itens) {
+        const authenticated = await signIn(itens);
+
+        if (!authenticated) throw new Error("Erro ao realizar autenticação");
+
+        navigate("/");
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (

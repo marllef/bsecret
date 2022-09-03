@@ -5,6 +5,9 @@
   "author": "Marllef H. A. Freitas <marllef-alves@hotmail.com>",
   "private": true,
   "license": "MIT",
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
