@@ -10,20 +10,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  id          String @id @default(uuid())
-  displayName String?
-  username    String @unique
-  email       String @unique
-  password    String
-
-  user User?
-}
-
 model User {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
-  account   Account @relation(fields: [accountId], references: [id])
-  accountId String  @unique
+  username String @unique
+  email    String @unique
+  password String
+
+  receivedMessages Message[] @relation(name: "received")
+  sentMessages     Message[] @relation(name: "sent")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Message {
+  id   String  @id @default(uuid())
+  text String?
+
+  secret Boolean @default(true)
+
+  from   User?   @relation(name: "received", fields: [fromId], references: [id])
+  fromId String?
+
+  to   User?   @relation(name: "sent", fields: [toId], references: [id])
+  toId String?
+
+  timestamp DateTime @db.Timestamptz() @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }

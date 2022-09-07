@@ -1,22 +1,24 @@
-import { Box, Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { Button, FormControl, TextField } from "@mui/material";
+import { FormEvent, FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "~/hooks/useAuth";
-import { Footer } from "./footer";
+import { Background } from "~/components/Background";
+import { Footer } from "~/components/Footer";
 
 export const LoginPage = () => {
   const [itens, setItens] = useState<any>();
   const { signIn } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       if (itens) {
         const authenticated = await signIn(itens);
 
         if (!authenticated) throw new Error("Erro ao realizar autenticação");
 
-        navigate("/");
+        navigate("/profile");
       }
     } catch (err: any) {
       console.error(err.message);
@@ -24,8 +26,13 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col relative w-full h-screen justify-center items-center bg-slate-100 p-5">
-      <div className="flex flex-col max-w-sm space-y-3 w-full bg-white p-2 rounded border">
+    <div className="flex flex-col relative w-full h-screen justify-center items-center p-5">
+      <Background />
+      <form
+        name="login"
+        onSubmit={handleSubmit}
+        className="flex flex-col max-w-sm space-y-3 w-full bg-white p-2 rounded border"
+      >
         <h3 className="w-full text-center text-2xl border-b  pb-3 pt-2">
           Realizar Login
         </h3>
@@ -50,11 +57,11 @@ export const LoginPage = () => {
             </a>
           </div>
 
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button type="submit" variant="contained">
             Login
           </Button>
         </div>
-      </div>
+      </form>
       <Footer />
     </div>
   );

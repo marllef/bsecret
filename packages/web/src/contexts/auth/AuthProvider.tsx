@@ -1,5 +1,8 @@
+import { Account, Prisma, User } from "@prisma/client";
 import { ReactNode, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { keys } from "~/configs";
+import { IAccount } from "~/interfaces/account";
 import { LoginCredentials } from "~/interfaces/auth/Login";
 import AuthServices from "~/services/AuthServices";
 import { AuthContext } from "./AuthContext";
@@ -9,10 +12,31 @@ interface Props {
 }
 
 export const AuthProvider = ({ children }: Props) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem(keys.AUTH_TOKEN)
+  );
+  const [currentUser, setCurrentUser] = useState<IAccount | null>(null);
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setLoading(true);
+
+    const validate = async () => {
+      const user = await AuthServices.validate();
+      if (user) {
+        setCurrentUser(user);
+        setIsAuthenticated(true);
+        setLoading(false);
+      }
+    };
+
+    const hasToken = !!localStorage.getItem(keys.AUTH_TOKEN);
+
+    if (hasToken) validate().catch(console.error);
+
+    return () => {};
+  }, [location]);
 
   const signIn = async (credentials: LoginCredentials) => {
     const token = await AuthServices.login(
@@ -21,8 +45,7 @@ export const AuthProvider = ({ children }: Props) => {
     );
 
     if (!token) {
-      localStorage.setItem(keys.AUTH_TOKEN, "");
-      setIsAuthenticated(false);
+      signOut();
       return false;
     }
 
@@ -32,8 +55,30 @@ export const AuthProvider = ({ children }: Props) => {
     return true;
   };
 
+  const register = async (data: Prisma.AccountCreateInput) => {
+    const account = await AuthServices.register(data);
+    if (!account) return false;
+
+    return true;
+  };
+
+  const signOut = () => {
+    localStorage.setItem(keys.AUTH_TOKEN, "");
+    setIsAuthenticated(false);
+    setCurrentUser(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn, currentUser }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        signIn,
+        signOut,
+        register,
+        loading,
+        currentUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

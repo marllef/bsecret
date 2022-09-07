@@ -14,7 +14,7 @@
   "scripts": {
     "web": "yarn workspace @bsecret/web",
     "server": "yarn workspace @bsecret/server",
-    "start": "yarn web dev & yarn server start:dev"
+    "start": "yarn web dev & yarn server dev"
   },
   "devDependencies": {
     "prisma": "^4.3.1"
