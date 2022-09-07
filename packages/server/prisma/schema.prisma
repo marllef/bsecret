@@ -26,19 +26,23 @@ model User {
 }
 
 model Message {
-  id   String  @id @default(uuid())
-  text String?
+  id   String @id @default(uuid())
+  text String
 
   secret Boolean @default(true)
 
-  from   User?   @relation(name: "received", fields: [fromId], references: [id])
-  fromId String?
+  replies Message[] @relation(name: "reply")
 
-  to   User?   @relation(name: "sent", fields: [toId], references: [id])
-  toId String?
+  to   User   @relation(name: "received", fields: [toId], references: [id])
+  toId String
 
-  timestamp DateTime @db.Timestamptz() @default(now())
+  from   User   @relation(name: "sent", fields: [fromId], references: [id])
+  fromId String
 
-  createdAt DateTime @default(now())
+  parent   Message? @relation(name: "reply", fields: [parentId], references: [id])
+  parentId String?
+
+  timestamp DateTime @default(now()) @db.Timestamptz()
+
   updatedAt DateTime @default(now()) @updatedAt
 }
