@@ -1,5 +1,7 @@
 # BySecret Messages Project
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f6547877-15d9-4e5d-9ab4-0dc607a5419b/deploy-status)](https://app.netlify.com/sites/bsecret/deploys)
+
 _Aplicação de perguntas e respostas secretas._
 
 ## Informações
