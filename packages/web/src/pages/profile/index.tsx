@@ -15,7 +15,7 @@ export const ProfilePage = () => {
         <div className="flex w-full justify-center items-center">
           <Avatar
             loading={loading}
-            name={currentUser?.displayName ?? "User"}
+            name={currentUser?.name ?? "User"}
             size={80}
           />
 
@@ -25,12 +25,12 @@ export const ProfilePage = () => {
                 {loading ? (
                   <Skeleton height={32} width="100%">
                     <h3 className="text-2xl font-bold ">
-                      {currentUser?.displayName}
+                      {currentUser?.name}
                     </h3>
                   </Skeleton>
                 ) : (
                   <h3 className="text-2xl font-bold ">
-                    {currentUser?.displayName}
+                    {currentUser?.name}
                   </h3>
                 )}
 
@@ -53,7 +53,7 @@ export const ProfilePage = () => {
           <CardMetric value={20} title="Respostas" />
         </div>
         <h5 className="text-white font-semibold uppercase">Destaques</h5>
-        <div className="bg-[#6365f1a6] w-full h-full border border-[#6366f1] p-2 rounded"></div>
+        <div className="bg-slate-700 w-full h-full border border-slate-800 p-2 rounded"></div>
       </div>
     </MainLayout>
   );

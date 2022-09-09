@@ -19,15 +19,14 @@ export const MainLayout = (props: Props) => {
   return (
     <>
       {!isAuthenticated && <Navigate to={"/signout"} replace />}
-      <div className="flex flex-col relative h-screen overflow-hidden">
-        <Background />
-        <header className="flex w-full items-center h-14 text-white bg-[#6365f1a6] border-[#6366f1]">
+      <div className="flex flex-col relative h-screen overflow-hidden bg-slate-900">
+        <header className="flex w-full items-center h-14 text-white bg-slate-800 border-500">
           <div className="flex w-full items-center justify-between h-full max-w-4xl sm:mx-auto px-8">
             <button className="flex items-center p-1">
               <MenuIcon />
             </button>
             <div className="space-x-4 hidden sm:flex">
-              <button className="px-2 py-1 rounded bg-[#6365f1de] border border-[#9295eb] hover:bg-[#6365f15b]">
+              <button className="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600">
                 Início
               </button>
               <button>Perguntas</button>
@@ -35,7 +34,7 @@ export const MainLayout = (props: Props) => {
             </div>
             <button
               onClick={handleSignout}
-              className="rounded text-sm font-semibold bg-[#6365f1de] border border-[#9295eb] hover:bg-[#6365f15b] px-2 py-1"
+              className="rounded text-sm font-semibold bg-slate-700 hover:bg-slate-600 px-2 py-1"
             >
               Sair
             </button>

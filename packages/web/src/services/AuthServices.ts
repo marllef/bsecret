@@ -1,5 +1,4 @@
-import { Account, Prisma } from "@prisma/client";
-import { AxiosError } from "axios";
+import { Prisma } from "@prisma/client";
 import { keys } from "~/configs";
 import { IAccount } from "~/interfaces/account";
 import { InternalError } from "~/utils";
@@ -34,7 +33,7 @@ export default {
     }
   },
 
-  async register(data: Prisma.AccountCreateInput) {
+  async register(data: Prisma.UserCreateInput) {
     try {
       const response = await api.post("/auth/register", data);
       return response.data;

@@ -1,5 +1,6 @@
 import { List, ListItem, ListItemButton } from "@mui/material";
 import { useEffect, useState } from "react";
+import { MessagesWithReplies } from "~/interfaces/IMessages";
 import { QuestionListItem } from "./QuestionListItem";
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
 }
 
 export const QuestionList = ({ data }: Props) => {
-  const [itens, setItens] = useState<any[]>();
+  const [itens, setItens] = useState<MessagesWithReplies[]>();
 
   useEffect(() => {
     setItens(data ?? []);
@@ -18,9 +19,10 @@ export const QuestionList = ({ data }: Props) => {
       {(itens || []).map((item, index) => (
         <QuestionListItem
           key={index}
-          date={item.createdAt}
+          date={item.timestamp}
           index={index + 1}
-          question={item.question}
+          question={item.text}
+          replies={item.replies}
         />
       ))}
     </List>

@@ -1,8 +1,8 @@
 import { Prisma } from "@prisma/client";
 
-export type IAccount = Prisma.UserGetPayload<{
+export type MessagesWithReplies = Prisma.MessageGetPayload<{
   include: {
-    receivedMessages: {
+    replies: {
       include: {
         replies: true;
       };

@@ -10,7 +10,7 @@ export const HomePage = () => {
     <div className=" flex flex-col h-screen justify-center items-center font-bold text-lg text-center">
       {currentUser ? (
         <div className="flex flex-col">
-          {`Bem vindo, ${currentUser.displayName}`}
+          {`Bem vindo, ${currentUser.name}`}
           <Button onClick={() => navigate("/signout")}>Sair</Button>
         </div>
       ) : (

@@ -1,6 +1,6 @@
-import { Account, Prisma, User } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 import { ReactNode, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { keys } from "~/configs";
 import { IAccount } from "~/interfaces/account";
 import { LoginCredentials } from "~/interfaces/auth/Login";
@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [currentUser, setCurrentUser] = useState<IAccount | null>(null);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate()
 
   useEffect(() => {
     setLoading(true);
@@ -55,7 +56,7 @@ export const AuthProvider = ({ children }: Props) => {
     return true;
   };
 
-  const register = async (data: Prisma.AccountCreateInput) => {
+  const register = async (data: Prisma.UserCreateInput) => {
     const account = await AuthServices.register(data);
     if (!account) return false;
 

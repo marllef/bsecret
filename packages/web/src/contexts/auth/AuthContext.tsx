@@ -1,4 +1,4 @@
-import { Account, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { createContext } from "react";
 import { IAccount } from "~/interfaces/account";
 import { LoginCredentials } from "~/interfaces/auth/Login";
@@ -9,7 +9,7 @@ type AuthState = {
   loading: boolean;
   signIn: { (credentials: LoginCredentials): Promise<boolean> };
   signOut: { (): void };
-  register: { (props: Prisma.AccountCreateInput): Promise<boolean> };
+  register: { (props: Prisma.UserCreateInput): Promise<boolean> };
 };
 
 export const AuthContext = createContext<AuthState | null>(null);
