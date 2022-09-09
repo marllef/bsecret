@@ -4,6 +4,10 @@ import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  root: ".",
+  build: {
+    outDir: "../server/dist/client"
+  },
   plugins: [react()],
   resolve: {
     alias: {
